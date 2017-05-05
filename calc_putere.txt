@@ -1,0 +1,28 @@
+*** Settings ***
+Library	kibenimatica.py
+
+*** Test Cases ***
+Ensure the calculations are correct
+	Check calc	2	3	8
+	
+Al doilea scenariu
+	Testeaza functia putere	${2}	${3}	${8}
+	Testeaza functia putere	${2}	${0}	${1}
+	Testeaza functia putere	${0}	${3}	${0}
+	Testeaza functia putere	${-2}	${3}	${-8}
+
+*** Keywords ***
+Check calc
+	[Arguments]	${baza}	${exponent}	${expected_result}
+	${baza}=	Convert to integer	${baza}
+	${exponent}=	Convert to integer	${exponent}
+	${expected_result}=	Convert to integer	${expected_result}
+	${actual_result}=	putere	${baza}	${exponent}
+	Should be equal	${actual_result}	${expected_result}
+	
+Testeaza functia putere
+	[Arguments]	${baza}	${exponent}	${expected_result}
+	${actual_result}=	putere	${baza}	${exponent}
+	Should be equal	${actual_result}	${expected_result}
+	
+	
